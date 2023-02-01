@@ -1,44 +1,106 @@
-import { Text, View, Button } from 'react-native'; 
-import { NavigationContainer } from '@react-navigation/native'; 
-import { createNativeStackNavigator} from '@react-navigation/native-stack'; 
-import Estilos from './estilos'; 
+import { Text, View, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Estilos from './estilos';
 import Cotação from './telas/cotacao';
 import Combustiveis from './telas/combustiveis';
-import Gestacao from './telas/idadegestacional'
-import Calculadora from './telas/calculadora'
-import Juros from './telas/juros'
-import Triangulo from './telas/areatriangulo'
-import Desconto from './telas/desconto'
+import Gestacao from './telas/idadegestacional';
+import Calculadora from './telas/calculadora';
+import Juros from './telas/juros';
+import Triangulo from './telas/areatriangulo';
+import Desconto from './telas/desconto';
 
-const Br = ()=><Text>{'\n'}</Text>
+const Br = () => <Text>{'\n'}</Text>;
+
 /**`Gera a tela principal.`*/
-const HomeScreen = ({ navigation })=> [
-    <View style={Estilos.container}><Br/>
-      <Button title="Gasolina ou etanol?" onPress={()=>navigation.navigate('combustiveis')}/><Br/>
-      <Button title="Area do Triângulo" onPress={()=> navigation.navigate('area')}/><Br/>
-      <Button title="Idade gestacional" onPress={()=> navigation.navigate('gestação')}/><Br/>
-      <Button title="Calculadora" onPress={()=> navigation.navigate('calculadora')}/><Br/>
-      <Button title="Desconto" onPress={()=> navigation.navigate('desconto')}/><Br/>
-      <Button title="Cotação" onPress={()=> navigation.navigate('cotação')}/><Br/>
-      <Button title="Juros" onPress={()=> navigation.navigate('juros')}/><Br/>
-     </View>
-];
+const HomeScreen = ({ navigation }) => {
+  let count = 1;
+  const Buttons = () => {
+    let id = count++;
+    return (
+      <Button
+        title={titles[id]}
+        onPress={() => navigation.navigate(names[id])}
+      />
+    );
+  };
+  return [
+    <View style={Estilos.container}>
+      <Br />
+      <Buttons />
+      <Br />
+      <Buttons />
+      <Br />
+      <Buttons />
+      <Br />
+      <Buttons />
+      <Br />
+      <Buttons />
+      <Br />
+      <Buttons />
+      <Br />
+      <Buttons />
+      <Br />
+    </View>
+  ];
+};
 
-const Stack = createNativeStackNavigator();
+const titles = [
+  'Aplicativo Canivete Suíço',
+  'Gasolina ou etanol?',
+  'Area do Triângulo',
+  'Idade gestacional',
+  'Calculadora',
+  'Desconto',
+  'Cotação',
+  'Juros',
+];
+const names = [
+  'Home',
+  'combustiveis',
+  'area',
+  'gestação',
+  'calculadora',
+  'desconto',
+  'cotação',
+  'juros',
+];
+const components = [
+  HomeScreen,
+  Combustiveis,
+  Triangulo,
+  Gestacao,
+  Calculadora,
+  Desconto,
+  Cotação,
+  Juros,
+];
 /**`Gerencia a navegação.`*/
-export default function App(){
+export default function App() {
+  const Stack = createNativeStackNavigator();
+  let i = 0;
+  const Screens = () => {
+    let id = i++;
+    return (
+      <Stack.Screen
+        name={names[id]}
+        component={components[id]}
+        options={{ title: titles[id] }}
+      />
+    );
+  };
   return [
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Aplicativo Canivete Suíço'}}/>
-        <Stack.Screen name="cotação" component={Cotação} options={{ title: 'Cotação'}}/>
-        <Stack.Screen name="combustiveis" component={Combustiveis} options={{title:'Combustiveis'}}/>
-        <Stack.Screen name="gestação" component={Gestacao} options={{ title: 'Idade gestacional'}}/>
-        <Stack.Screen name="juros" component={Juros} options={{title:'Calcular Juros'}}/>
-        <Stack.Screen name="area" component={Triangulo} options={{title:'Area do triângulo'}}/>
-        <Stack.Screen name="calculadora" component={Calculadora} options={{title:'Calculadora'}}/>
-        <Stack.Screen name="desconto" component={Desconto} options={{title:'Calcular o Desconto'}}/>
+        {Screens()}
+        {Screens()}
+        {Screens()}
+        {Screens()}
+        {Screens()}
+        {Screens()}
+        {Screens()}
+        {Screens()}
       </Stack.Navigator>
     </NavigationContainer>
-  ]
+  ];
 }
