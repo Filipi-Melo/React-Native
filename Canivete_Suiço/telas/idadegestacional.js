@@ -29,7 +29,7 @@ export default function App(){
         onChangeText={dia_atual=>setDiaAtual(dia_atual)}/>
       <Text> </Text>
       <Button title='Calcular' onPress={calcularIdade}/>
-      <Text style={Estilos.paragraph}>{idade ? '\nIdade gestacional: '+idade+'semanas': ''}</Text>
+      <Text style={Estilos.paragraph}>{idade ? '\nIdade gestacional: '+idade+' semanas': ''}</Text>
     </View>
   )
 }
